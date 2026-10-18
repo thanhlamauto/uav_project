@@ -1,0 +1,8 @@
+/build/
+/install/
+/log/
+/state/
+/weights/
+.DS_Store
+__pycache__/
+*.py[cod]

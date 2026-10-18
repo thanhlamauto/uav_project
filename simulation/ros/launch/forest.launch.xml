@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="params_file" default="/simulation/runtime.yaml"/>
+  <arg name="fcu_url" default="tcp://192.168.55.100:5762"/>
+  <arg name="model_file" default="/models/depth_fp16.plan"/>
+  <arg name="depth_backend" default="auto"/>
+  <arg name="prior_map" default="/maps/prior.bt"/>
+  <arg name="localization_source" default="gazebo"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="start_receiver" default="true"/>
+  <arg name="receiver_bind_address" default="192.168.55.1"/>
+  <arg name="receiver_port" default="7447"/>
+  <arg name="receiver_launch_file" default="$(find-pkg-share uav_simulation)/launch/gazebo_receiver.launch.xml"/>
+  <arg name="start_mavros" default="true"/>
+  <arg name="mavros_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/mavros.launch.xml"/>
+  <arg name="start_localization" default="true"/>
+  <arg name="localization_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/odometry_tf.launch.xml"/>
+  <arg name="start_depth" default="true"/>
+  <arg name="depth_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/monocular_depth.launch.xml"/>
+  <arg name="start_global_planner" default="true"/>
+  <arg name="global_planner_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/octomap_route_replanner.launch.xml"/>
+  <arg name="start_local_planner" default="true"/>
+  <arg name="local_planner_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/local_navigation.launch.xml"/>
+  <arg name="start_adapter" default="true"/>
+  <arg name="adapter_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/autopilot_adapter.launch.xml"/>
+  <group scoped="true">
+    <include if="$(var start_receiver)" file="$(var receiver_launch_file)">
+      <arg name="bind_address" value="$(var receiver_bind_address)"/>
+      <arg name="port" value="$(var receiver_port)"/>
+    </include>
+  </group>
+  <group scoped="true">
+    <include file="$(find-pkg-share uav_navigation_bringup)/launch/app.launch.xml">
+      <arg name="params_file" value="$(var params_file)"/>
+      <arg name="model_file" value="$(var model_file)"/>
+      <arg name="depth_backend" value="$(var depth_backend)"/>
+      <arg name="prior_map" value="$(var prior_map)"/>
+      <arg name="localization_source" value="$(var localization_source)"/>
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+      <arg name="fcu_url" value="$(var fcu_url)"/>
+      <arg name="start_mavros" value="$(var start_mavros)"/>
+      <arg name="mavros_launch_file" value="$(var mavros_launch_file)"/>
+      <arg name="start_localization" value="$(var start_localization)"/>
+      <arg name="localization_launch_file" value="$(var localization_launch_file)"/>
+      <arg name="start_depth" value="$(var start_depth)"/>
+      <arg name="depth_launch_file" value="$(var depth_launch_file)"/>
+      <arg name="start_global_planner" value="$(var start_global_planner)"/>
+      <arg name="global_planner_launch_file" value="$(var global_planner_launch_file)"/>
+      <arg name="start_local_planner" value="$(var start_local_planner)"/>
+      <arg name="local_planner_launch_file" value="$(var local_planner_launch_file)"/>
+      <arg name="start_adapter" value="$(var start_adapter)"/>
+      <arg name="adapter_launch_file" value="$(var adapter_launch_file)"/>
+    </include>
+  </group>
+</launch>

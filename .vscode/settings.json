@@ -1,0 +1,7 @@
+{
+    "workbench.colorCustomizations": {
+        "statusBarItem.warningBackground": "#2EB872",
+        "statusBarItem.warningForeground": "#EAFFF2"
+    },
+    "cmake.sourceDirectory": "/Users/nguyenthanhlam/Projects/ardupilot_gazebo/uav_project/simulation"
+}

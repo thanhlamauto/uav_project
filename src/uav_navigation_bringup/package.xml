@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>uav_navigation_bringup</name>
+  <version>0.1.0</version>
+  <description>Launch and configuration for monocular UAV navigation.</description>
+  <maintainer email="78715071+thanhlamauto@users.noreply.github.com">Nguyen Thanh Lam</maintainer>
+  <license>LGPL-3.0</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>uav_navigation_ros</exec_depend>
+  <exec_depend>mavros</exec_depend>
+  <exec_depend>ros2launch</exec_depend>
+  <exec_depend>launch_xml</exec_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

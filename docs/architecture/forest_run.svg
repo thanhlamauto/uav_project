@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="2200" viewBox="0 0 2400 2200"><defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8" fill="none" stroke="#53647a" stroke-width="1.5"/></marker></defs>
+<rect x="0" y="0" width="2400" height="2200" rx="0" fill="#ffffff" stroke="#ffffff"/>
+<rect x="700" y="35" width="1000" height="115" rx="12" fill="#eef5ff" stroke="#3269a8"/>
+<text x="722" y="76" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#3269a8">ĐIỂM BẮT ĐẦU — chạy trên Mac</text>
+<text x="722" y="116" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">UAV_DURATION=120 UAV_RVIZ=1 bash scripts/run_forest.sh</text>
+<text x="55" y="202" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#53647a">Mũi tên liền: gọi / khởi chạy / dùng file</text>
+<path d="M600 198 L690 198" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="760" y="202" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#53647a">Nét đứt: truyền dữ liệu khi chạy</text>
+<path d="M1200 198 L1290 198" fill="none" stroke="#53647a" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+<text x="1390" y="201" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#53647a">Số 1–7 là thứ tự khởi động; các process sau đó chạy đồng thời.</text>
+<rect x="40" y="240" width="1000" height="1620" rx="12" fill="#fffbf4" stroke="#e4c596"/>
+<text x="70" y="283" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#b66b10">MAC — mô phỏng + điều phối</text>
+<rect x="1140" y="240" width="1220" height="1620" rx="12" fill="#f5f9ff" stroke="#b7cce6"/>
+<text x="1170" y="283" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#3269a8">ORIN — Docker / ROS 2 Humble / TensorRT GPU</text>
+<path d="M700 90 L25 90 L25 400 L70 400" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1700 90 L2380 90 L2380 370 L2330 370" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="70" y="310" width="940" height="180" rx="12" fill="#fff4df" stroke="#b66b10"/>
+<text x="92" y="351" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#b66b10">1  BUILD + PRIOR MAP — trước khi bay</text>
+<text x="92" y="391" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">simulation/CMakeLists.txt → plugin + gazebo_sender</text>
+<text x="92" y="425" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">scripts/prepare_octomap.sh → tools/octomap/CMakeLists.txt</text>
+<text x="92" y="459" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">build_octomap_world + worlds/forest.sdf → maps/prior.bt</text>
+<rect x="70" y="535" width="940" height="230" rx="12" fill="#fff4df" stroke="#b66b10"/>
+<text x="92" y="576" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#b66b10">3  GAZEBO SERVER + GUI — hai process riêng</text>
+<text x="92" y="616" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">gz sim -s -r ...  /  gz sim -g ...</text>
+<text x="92" y="650" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">simulation/worlds/forest.sdf → simulation/models/</text>
+<text x="92" y="684" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">build/simulation/plugins/libArduPilotPlugin.dylib</text>
+<text x="92" y="718" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Source plugin: simulation/vendor/ardupilot_plugin/src/</text>
+<rect x="70" y="805" width="940" height="230" rx="12" fill="#fff4df" stroke="#b66b10"/>
+<text x="92" y="846" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#b66b10">3–4  SITL + TAKEOFF — chỉ tiếp tục khi HOVER READY</text>
+<text x="92" y="886" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">state/simulation/bin/arducopter</text>
+<text x="92" y="920" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">  └─ simulation/config/sitl.parm</text>
+<text x="92" y="954" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">simulation/sitl_control.py takeoff --altitude 3</text>
+<text x="92" y="988" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">MAVLink localhost:5760; không force-arm</text>
+<rect x="70" y="1080" width="940" height="200" rx="12" fill="#fff4df" stroke="#b66b10"/>
+<text x="92" y="1121" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#b66b10">6  STREAM CAMERA + STATE + CLOCK</text>
+<text x="92" y="1161" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">build/simulation/gazebo_sender</text>
+<text x="92" y="1195" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">  ← simulation/bridge/gazebo_sender.cpp</text>
+<text x="92" y="1229" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">  ← bridge/include/{sim_wire.hpp,jpeg_rgb.hpp}</text>
+<rect x="70" y="1320" width="940" height="230" rx="12" fill="#eef8f1" stroke="#2d8050"/>
+<text x="92" y="1361" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#2d8050">RVIZ — Mac, ROS domain 175 riêng</text>
+<text x="92" y="1401" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">simulation/visualization/start_mac.sh → rviz2</text>
+<text x="92" y="1435" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">relay_client.py + simulation/config/forest.rviz</text>
+<text x="92" y="1469" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Orin relay_server.py (Docker) → SSH TCP 7448 → Mac</text>
+<text x="92" y="1503" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Path A* / MPPI / cloud / đường bay thực + lý do dừng</text>
+<text x="92" y="1537" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Bật/tắt bằng UAV_RVIZ=1/0; chỉ nhận dữ liệu</text>
+<rect x="70" y="1590" width="940" height="210" rx="12" fill="#eef8f1" stroke="#2d8050"/>
+<text x="92" y="1631" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#2d8050">7  MAC GỌI OBSERVER TRÊN ORIN QUA SSH</text>
+<text x="92" y="1671" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">run_forest.sh → SSH: orin_runtime.sh observe</text>
+<text x="92" y="1705" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Truyền UAV_DURATION và XYZ goal cho observer</text>
+<text x="92" y="1739" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Chờ observer kết thúc; hiển thị log qua tee</text>
+<text x="92" y="1773" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Sau đó chạy cleanup: LAND → dừng → thu log</text>
+<path d="M540 490 L540 535" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M540 765 L540 805" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M540 1035 L540 1080" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M540 1280 L540 1320" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M540 1550 L540 1590" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1170" y="310" width="1160" height="125" rx="12" fill="#eaf2ff" stroke="#3269a8"/>
+<text x="1192" y="351" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#3269a8">2  ĐỒNG BỘ + BUILD — USB SSH / rsync</text>
+<text x="1192" y="391" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">simulation/orin_runtime.sh build   (được gọi từ run_forest.sh)</text>
+<rect x="1170" y="480" width="1160" height="160" rx="12" fill="#eaf2ff" stroke="#3269a8"/>
+<text x="1192" y="521" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#3269a8">DOCKER BUILD CHAIN</text>
+<text x="1192" y="561" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">simulation/Dockerfile.build → simulation-build (dependency, một lần)</text>
+<text x="1192" y="595" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">deploy/Dockerfile.gpu → humble-gpu (CMake/colcon build src/)</text>
+<text x="1192" y="629" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">simulation/Dockerfile → simulation (build receiver + launch)</text>
+<path d="M1750 435 L1750 480" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1170" y="685" width="1160" height="140" rx="12" fill="#eaf2ff" stroke="#3269a8"/>
+<text x="1192" y="726" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#3269a8">5  KHỞI ĐỘNG GPU RUNTIME — sau takeoff</text>
+<text x="1192" y="766" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">orin_runtime.sh start → docker run --runtime nvidia</text>
+<text x="1192" y="800" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Docker CMD → ros2 launch uav_simulation forest.launch.xml</text>
+<path d="M1750 640 L1750 685" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1170" y="880" width="440" height="205" rx="12" fill="#eaf2ff" stroke="#3269a8"/>
+<text x="1192" y="921" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#3269a8">RECEIVER LAUNCH</text>
+<text x="1192" y="961" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">gazebo_receiver.launch.xml</text>
+<text x="1192" y="995" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">  → gazebo_receiver.cpp</text>
+<text x="1192" y="1029" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Trong simulation/ros/</text>
+<text x="1192" y="1063" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">TCP → RGB / state / clock</text>
+<rect x="1660" y="880" width="670" height="205" rx="12" fill="#f4f0ff" stroke="#7751ad"/>
+<text x="1682" y="921" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#7751ad">APP LAUNCH — composition</text>
+<text x="1682" y="961" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">src/uav_navigation_bringup/</text>
+<text x="1682" y="995" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">  launch/app.launch.xml</text>
+<text x="1682" y="1029" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Params: /simulation/runtime.yaml</text>
+<text x="1682" y="1063" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">  ← simulation/config/runtime.yaml</text>
+<path d="M1540 825 L1540 850 L1390 850 L1390 880" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1980 825 L1980 880" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1980 1085 L1980 1120" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1170" y="1120" width="1160" height="470" rx="12" fill="#eaf2ff" stroke="#3269a8"/>
+<text x="1192" y="1161" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#3269a8">APP INCLUDE → LAUNCH RIÊNG → NODE / EXECUTABLE</text>
+<text x="1192" y="1201" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">odometry_tf.launch.xml              → odometry_tf_node</text>
+<text x="1192" y="1235" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">monocular_depth.launch.xml          → monocular_depth_node</text>
+<text x="1192" y="1269" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">octomap_route_replanner.launch.xml  → octomap_route_replanner_node</text>
+<text x="1192" y="1303" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">local_navigation.launch.xml        → local_navigation_node</text>
+<text x="1192" y="1337" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">autopilot_adapter.launch.xml       → autopilot_adapter_node</text>
+<text x="1192" y="1371" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">mavros.launch.xml → MAVROS apm.launch → mavros_node</text>
+<text x="1192" y="1405" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Node C++: src/uav_navigation_ros/src/ → uav_navigation_core</text>
+<text x="1192" y="1439" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Global: prior cố định → static_octomap_planner.cpp → A* 5 Hz</text>
+<text x="1192" y="1473" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Local: Depth Anything → cloud → MPPI; không cập nhật prior</text>
+<text x="1192" y="1507" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Định vị: Gazebo GT pose + vận tốc → odometry_tf → A* / MPPI</text>
+<text x="1192" y="1541" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Mount: depth_fp16.plan · prior.bt · output/ · driver NVIDIA</text>
+<text x="1192" y="1575" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">RViz opt.: orin_runtime.sh visualize → relay_server.py (Docker)</text>
+<rect x="1170" y="1620" width="1160" height="220" rx="12" fill="#eef8f1" stroke="#2d8050"/>
+<text x="1192" y="1661" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#2d8050">7  OBSERVER — thực thi trong Docker trên Orin</text>
+<text x="1192" y="1701" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">orin_runtime.sh observe → docker exec → simulation/observe_run.py</text>
+<text x="1192" y="1735" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Chờ cloud/state mới + FCU connected/armed/GUIDED → publish /goal_pose</text>
+<text x="1192" y="1769" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Ghi vị trí, cloud/path/lệnh → summary.json; dừng sớm khi tới goal</text>
+<text x="1192" y="1803" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Hạn UAV_DURATION: mặc định 60 s; lệnh minh họa ở trên dùng 120 s</text>
+<path d="M1010 1690 L1120 1690 L1120 1710 L1170 1710" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1170 1565 L1110 1565 L1110 1440 L1010 1440" fill="none" stroke="#2d8050" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+<path d="M1010 1170 L1100 1170 L1100 980 L1170 980" fill="none" stroke="#2d8050" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+<text x="1038" y="944" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#2d8050">USB</text>
+<text x="1038" y="969" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#2d8050">7447</text>
+<path d="M1170 1530 L1080 1530 L1080 1885 L30 1885 L30 925 L70 925" fill="none" stroke="#2d8050" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+<text x="100" y="1880" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#2d8050">Lệnh quay về SITL: adapter → MAVROS → USB TCP 5762</text>
+<rect x="40" y="1910" width="2320" height="190" rx="12" fill="#eef8f1" stroke="#2d8050"/>
+<text x="62" y="1951" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#2d8050">KẾT THÚC / Ctrl+C — run_forest.sh điều phối</text>
+<text x="62" y="1991" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">sitl_control.py land → chờ disarmed → orin_runtime.sh stop → docker stop → lưu runtime.log</text>
+<text x="62" y="2025" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">rsync log về Mac → dừng sender / GUI / SITL / Gazebo do script tạo</text>
+<text x="62" y="2059" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Nếu chưa xác nhận LAND: giữ physics/SITL hoạt động và báo lỗi; không tắt mô phỏng giữa không trung.</text>
+<text x="60" y="2152" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#53647a">Kết quả: state/simulation/run_&lt;timestamp&gt;_&lt;pid&gt;/  •  prior.bt + runtime.log + summary.json + log từng process</text>
+<text x="60" y="2184" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#53647a">Prior được tạo offline ở bước 1; camera chỉ cấp vật cản cho MPPI, không cập nhật map của A*.</text>
+</svg>

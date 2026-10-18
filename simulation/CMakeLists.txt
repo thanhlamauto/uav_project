@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.16)
+project(uav_simulation_mac LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+include(CTest)
+find_package(PkgConfig REQUIRED)
+find_package(JPEG REQUIRED)
+pkg_check_modules(TRANSPORT REQUIRED IMPORTED_TARGET gz-transport13)
+pkg_check_modules(MSGS REQUIRED IMPORTED_TARGET gz-msgs10)
+find_package(gz-sim8 REQUIRED)
+find_path(RAPIDJSON_INCLUDE_DIR rapidjson/writer.h REQUIRED)
+set(plugin vendor/ardupilot_plugin)
+add_library(ArduPilotPlugin SHARED
+  ${plugin}/src/lifecycle.cpp ${plugin}/src/controls.cpp
+  ${plugin}/src/sensors.cpp ${plugin}/src/updates.cpp
+  ${plugin}/src/forces.cpp ${plugin}/src/servo.cpp ${plugin}/src/state.cpp
+  ${plugin}/src/SocketUDP.cc ${plugin}/src/Util.cc)
+target_include_directories(ArduPilotPlugin PRIVATE ${plugin}/include ${RAPIDJSON_INCLUDE_DIR})
+target_link_libraries(ArduPilotPlugin PRIVATE gz-sim8::gz-sim8)
+set_target_properties(ArduPilotPlugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/plugins")
+add_executable(gazebo_sender bridge/gazebo_sender.cpp)
+target_include_directories(gazebo_sender PRIVATE bridge/include)
+target_link_libraries(gazebo_sender PRIVATE PkgConfig::TRANSPORT PkgConfig::MSGS JPEG::JPEG)
+if(BUILD_TESTING)
+  add_executable(test_transport bridge/test/test_transport.cpp)
+  target_include_directories(test_transport PRIVATE bridge/include)
+  target_link_libraries(test_transport PRIVATE JPEG::JPEG)
+  add_test(NAME simulator_wire_and_jpeg COMMAND test_transport)
+endif()

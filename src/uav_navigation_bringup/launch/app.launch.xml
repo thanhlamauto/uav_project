@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Composition only; each component has an independently runnable launch. -->
+  <arg name="params_file" default="$(find-pkg-share uav_navigation_bringup)/config/runtime.yaml"/>
+  <arg name="model_file" default="/models/depth_fp16.plan"/>
+  <arg name="depth_backend" default="auto"/>
+  <arg name="prior_map" default="/maps/prior.bt"/>
+  <arg name="localization_source" default="gazebo"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="fcu_url" default="/dev/ttyACM0:57600"/>
+  <arg name="start_mavros" default="true"/>
+  <arg name="mavros_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/mavros.launch.xml"/>
+  <arg name="start_localization" default="true"/>
+  <arg name="localization_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/odometry_tf.launch.xml"/>
+  <arg name="start_depth" default="true"/>
+  <arg name="depth_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/monocular_depth.launch.xml"/>
+  <arg name="start_global_planner" default="true"/>
+  <arg name="global_planner_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/octomap_route_replanner.launch.xml"/>
+  <arg name="start_local_planner" default="true"/>
+  <arg name="local_planner_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/local_navigation.launch.xml"/>
+  <arg name="start_adapter" default="true"/>
+  <arg name="adapter_launch_file" default="$(find-pkg-share uav_navigation_bringup)/launch/autopilot_adapter.launch.xml"/>
+  <group scoped="true">
+    <include if="$(var start_mavros)" file="$(var mavros_launch_file)">
+      <arg name="fcu_url" value="$(var fcu_url)"/>
+    </include>
+  </group>
+  <group scoped="true">
+    <include if="$(var start_localization)" file="$(var localization_launch_file)">
+      <arg name="params_file" value="$(var params_file)"/>
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+      <arg name="localization_source" value="$(var localization_source)"/>
+    </include>
+  </group>
+  <group scoped="true">
+    <include if="$(var start_depth)" file="$(var depth_launch_file)">
+      <arg name="params_file" value="$(var params_file)"/>
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+      <arg name="model_file" value="$(var model_file)"/>
+      <arg name="depth_backend" value="$(var depth_backend)"/>
+    </include>
+  </group>
+  <group scoped="true">
+    <include if="$(var start_global_planner)" file="$(var global_planner_launch_file)">
+      <arg name="params_file" value="$(var params_file)"/>
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+      <arg name="prior_map" value="$(var prior_map)"/>
+    </include>
+  </group>
+  <group scoped="true">
+    <include if="$(var start_local_planner)" file="$(var local_planner_launch_file)">
+      <arg name="prior_map" value="$(var prior_map)"/>
+      <arg name="params_file" value="$(var params_file)"/>
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    </include>
+  </group>
+  <group scoped="true">
+    <include if="$(var start_adapter)" file="$(var adapter_launch_file)">
+      <arg name="params_file" value="$(var params_file)"/>
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    </include>
+  </group>
+</launch>

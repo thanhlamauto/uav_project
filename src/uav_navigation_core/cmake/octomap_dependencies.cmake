@@ -1,0 +1,3 @@
+include(CMakeFindDependencyMacro)
+find_dependency(PkgConfig)
+pkg_check_modules(OCTOMAP REQUIRED IMPORTED_TARGET octomap)

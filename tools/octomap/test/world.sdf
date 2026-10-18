@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <world name="geometry_fixture">
+    <include><uri>model://iris_with_monocular_camera_reference</uri></include>
+    <model name="rotated_box">
+      <static>true</static><pose>0 0 2.5 0 0 1.5707963267948966</pose>
+      <link name="body">
+        <pose>1 0 0 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>2 1 1</size></box></geometry></collision>
+      </link>
+    </model>
+    <model name="cylinder">
+      <static>true</static><pose>3 0 2.5 0 0 0</pose>
+      <link name="body"><collision name="collision"><geometry>
+        <cylinder><radius>0.4</radius><length>2</length></cylinder>
+      </geometry></collision></link>
+    </model>
+    <model name="sphere">
+      <static>true</static><pose>6 0 2.5 0 0 0</pose>
+      <link name="body"><collision name="collision"><geometry>
+        <sphere><radius>0.4</radius></sphere>
+      </geometry></collision></link>
+    </model>
+    <model name="dynamic_ignored">
+      <static>false</static>
+      <link name="body"><collision name="collision"><geometry><mesh/></geometry></collision></link>
+    </model>
+  </world>
+</sdf>

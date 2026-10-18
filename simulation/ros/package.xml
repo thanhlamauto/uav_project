@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>uav_simulation</name><version>0.1.0</version>
+  <description>Simulator ingress only; navigation runs in the product packages.</description>
+  <maintainer email="maintainer@example.com">UAV project</maintainer>
+  <license>Apache-2.0</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend><depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend><depend>rosgraph_msgs</depend>
+  <depend>libjpeg-dev</depend>
+  <exec_depend>uav_navigation_bringup</exec_depend>
+  <exec_depend>launch_xml</exec_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="params_file" default="$(find-pkg-share uav_navigation_bringup)/config/runtime.yaml"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="localization_source" default="gazebo"/>
+  <arg name="node_package" default="uav_navigation_ros"/>
+  <arg name="node_executable" default="odometry_tf_node"/>
+  <node pkg="$(var node_package)" exec="$(var node_executable)" name="odometry_tf" output="screen">
+    <param from="$(var params_file)"/>
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+    <param name="localization_source" value="$(var localization_source)"/>
+  </node>
+</launch>

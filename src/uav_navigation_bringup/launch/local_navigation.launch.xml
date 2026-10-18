@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="params_file" default="$(find-pkg-share uav_navigation_bringup)/config/runtime.yaml"/>
+  <arg name="prior_map" default="/maps/prior.bt"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="node_package" default="uav_navigation_ros"/>
+  <arg name="node_executable" default="local_navigation_node"/>
+  <node pkg="$(var node_package)" exec="$(var node_executable)" name="local_navigation" output="screen">
+    <param from="$(var params_file)"/>
+    <param name="prior_map_file" value="$(var prior_map)"/>
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+  </node>
+</launch>
