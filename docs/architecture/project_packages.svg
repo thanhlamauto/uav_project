@@ -19,7 +19,7 @@
 <text x="96" y="563" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#53647a">Sender trên Mac + TCP protocol</text>
 <text x="96" y="636" font-family="Menlo, Consolas, monospace" font-size="21" font-weight="400" fill="#88500e">ros/</text>
 <text x="96" y="668" font-family="Menlo, Consolas, monospace" font-size="18" font-weight="400" fill="#53647a">gazebo_receiver.cpp</text>
-<text x="96" y="698" font-family="Menlo, Consolas, monospace" font-size="18" font-weight="400" fill="#53647a">launch/forest.launch.xml</text>
+<text x="96" y="698" font-family="Menlo, Consolas, monospace" font-size="18" font-weight="400" fill="#53647a">launch/forest.launch.py</text>
 <text x="96" y="728" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#53647a">Receiver ROS + launch mô phỏng</text>
 <text x="96" y="796" font-family="Menlo, Consolas, monospace" font-size="21" font-weight="400" fill="#88500e">config/</text>
 <text x="96" y="827" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#53647a">runtime.yaml · sitl.parm · forest.rviz</text>
@@ -31,7 +31,7 @@
 <rect x="680" y="110" width="1748" height="220" rx="12" fill="#f4f0ff" stroke="#7751ad" stroke-width="1.5"/>
 <text x="705" y="158" font-family="Menlo, Consolas, monospace" font-size="28" font-weight="400" fill="#7751ad">1  uav_navigation_bringup/</text>
 <text x="705" y="191" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#53647a">«ROS 2 package»  KHỞI ĐỘNG VÀ CẤU HÌNH</text>
-<text x="710" y="241" font-family="Menlo, Consolas, monospace" font-size="24" font-weight="400" fill="#172b4d">launch/app.launch.xml</text>
+<text x="710" y="241" font-family="Menlo, Consolas, monospace" font-size="24" font-weight="400" fill="#172b4d">launch/app.launch.py</text>
 <text x="710" y="279" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#53647a">Khởi động các node, chọn nguồn dữ liệu và backend</text>
 <text x="1590" y="241" font-family="Menlo, Consolas, monospace" font-size="24" font-weight="400" fill="#172b4d">config/runtime.yaml</text>
 <text x="1590" y="279" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#53647a">Topic, frame, giới hạn, tham số thuật toán</text>
@@ -117,7 +117,7 @@
 <text x="1464" y="1562" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#53647a">Có test/ và CMakeLists.txt riêng</text>
 <text x="74" y="1655" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#53647a">Khung lồng nhau = chứa source / folder  •  Mũi tên đứt = quan hệ sử dụng, khởi động hoặc cung cấp dữ liệu</text>
 <text x="74" y="1692" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#53647a">build/ · install/ · log/ · state/ · weights/ là đầu ra hoặc dependency local; không nằm trong kiến trúc source.</text>
-<text x="710" y="311" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#53647a">launch/*.launch.xml — launch riêng từng node</text>
+<text x="710" y="311" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#53647a">launch/*.launch.py — launch riêng từng node</text>
 <text x="96" y="1005" font-family="Menlo, Consolas, monospace" font-size="20" font-weight="400" fill="#88500e">orin_runtime.sh</text>
 <text x="96" y="1032" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#53647a">Docker: build / start / observe / stop</text>
 <text x="96" y="1070" font-family="Menlo, Consolas, monospace" font-size="20" font-weight="400" fill="#88500e">observe_run.py</text>

@@ -66,18 +66,18 @@
 <rect x="1170" y="685" width="1160" height="140" rx="12" fill="#eaf2ff" stroke="#3269a8"/>
 <text x="1192" y="726" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#3269a8">5  KHỞI ĐỘNG GPU RUNTIME — sau takeoff</text>
 <text x="1192" y="766" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">orin_runtime.sh start → docker run --runtime nvidia</text>
-<text x="1192" y="800" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Docker CMD → ros2 launch uav_simulation forest.launch.xml</text>
+<text x="1192" y="800" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Docker CMD → ros2 launch uav_simulation forest.launch.py</text>
 <path d="M1750 640 L1750 685" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
 <rect x="1170" y="880" width="440" height="205" rx="12" fill="#eaf2ff" stroke="#3269a8"/>
 <text x="1192" y="921" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#3269a8">RECEIVER LAUNCH</text>
-<text x="1192" y="961" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">gazebo_receiver.launch.xml</text>
+<text x="1192" y="961" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">gazebo_receiver.launch.py</text>
 <text x="1192" y="995" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">  → gazebo_receiver.cpp</text>
 <text x="1192" y="1029" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Trong simulation/ros/</text>
 <text x="1192" y="1063" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">TCP → RGB / state / clock</text>
 <rect x="1660" y="880" width="670" height="205" rx="12" fill="#f4f0ff" stroke="#7751ad"/>
 <text x="1682" y="921" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#7751ad">APP LAUNCH — composition</text>
 <text x="1682" y="961" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">src/uav_navigation_bringup/</text>
-<text x="1682" y="995" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">  launch/app.launch.xml</text>
+<text x="1682" y="995" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">  launch/app.launch.py</text>
 <text x="1682" y="1029" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Params: /simulation/runtime.yaml</text>
 <text x="1682" y="1063" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">  ← simulation/config/runtime.yaml</text>
 <path d="M1540 825 L1540 850 L1390 850 L1390 880" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
@@ -85,12 +85,12 @@
 <path d="M1980 1085 L1980 1120" fill="none" stroke="#53647a" stroke-width="2" marker-end="url(#arrow)"/>
 <rect x="1170" y="1120" width="1160" height="470" rx="12" fill="#eaf2ff" stroke="#3269a8"/>
 <text x="1192" y="1161" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#3269a8">APP INCLUDE → LAUNCH RIÊNG → NODE / EXECUTABLE</text>
-<text x="1192" y="1201" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">odometry_tf.launch.xml              → odometry_tf_node</text>
-<text x="1192" y="1235" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">monocular_depth.launch.xml          → monocular_depth_node</text>
-<text x="1192" y="1269" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">octomap_route_replanner.launch.xml  → octomap_route_replanner_node</text>
-<text x="1192" y="1303" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">local_navigation.launch.xml        → local_navigation_node</text>
-<text x="1192" y="1337" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">autopilot_adapter.launch.xml       → autopilot_adapter_node</text>
-<text x="1192" y="1371" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">mavros.launch.xml → MAVROS apm.launch → mavros_node</text>
+<text x="1192" y="1201" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">odometry_tf.launch.py              → odometry_tf_node</text>
+<text x="1192" y="1235" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">monocular_depth.launch.py          → monocular_depth_node</text>
+<text x="1192" y="1269" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">octomap_route_replanner.launch.py  → octomap_route_replanner_node</text>
+<text x="1192" y="1303" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">local_navigation.launch.py        → local_navigation_node</text>
+<text x="1192" y="1337" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">autopilot_adapter.launch.py       → autopilot_adapter_node</text>
+<text x="1192" y="1371" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">mavros.launch.py → MAVROS apm.launch → mavros_node</text>
 <text x="1192" y="1405" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Node C++: src/uav_navigation_ros/src/ → uav_navigation_core</text>
 <text x="1192" y="1439" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Global: prior cố định → static_octomap_planner.cpp → A* 5 Hz</text>
 <text x="1192" y="1473" font-family="Menlo, Consolas, monospace" font-size="20" fill="#172b4d">Local: Depth Anything → cloud → MPPI; không cập nhật prior</text>

@@ -130,18 +130,18 @@ card(1170, 480, 1160, 160, 'DOCKER BUILD CHAIN', [
 arrow([(1750, 435), (1750, 480)])
 card(1170, 685, 1160, 140, '5  KHỞI ĐỘNG GPU RUNTIME — sau takeoff', [
     'orin_runtime.sh start → docker run --runtime nvidia',
-    'Docker CMD → ros2 launch uav_simulation forest.launch.xml',
+    'Docker CMD → ros2 launch uav_simulation forest.launch.py',
 ], BLUE, '#eaf2ff')
 arrow([(1750, 640), (1750, 685)])
 card(1170, 880, 440, 205, 'RECEIVER LAUNCH', [
-    'gazebo_receiver.launch.xml',
+    'gazebo_receiver.launch.py',
     '  → gazebo_receiver.cpp',
     'Trong simulation/ros/',
     'TCP → RGB / state / clock',
 ], BLUE, '#eaf2ff')
 card(1660, 880, 670, 205, 'APP LAUNCH — composition', [
     'src/uav_navigation_bringup/',
-    '  launch/app.launch.xml',
+    '  launch/app.launch.py',
     'Params: /simulation/runtime.yaml',
     '  ← simulation/config/runtime.yaml',
 ], '#7751ad', '#f4f0ff')
@@ -149,12 +149,12 @@ arrow([(1540, 825), (1540, 850), (1390, 850), (1390, 880)])
 arrow([(1980, 825), (1980, 880)])
 arrow([(1980, 1085), (1980, 1120)])
 card(1170, 1120, 1160, 470, 'APP INCLUDE → LAUNCH RIÊNG → NODE / EXECUTABLE', [
-    'odometry_tf.launch.xml              → odometry_tf_node',
-    'monocular_depth.launch.xml          → monocular_depth_node',
-    'octomap_route_replanner.launch.xml  → octomap_route_replanner_node',
-    'local_navigation.launch.xml        → local_navigation_node',
-    'autopilot_adapter.launch.xml       → autopilot_adapter_node',
-    'mavros.launch.xml → MAVROS apm.launch → mavros_node',
+    'odometry_tf.launch.py              → odometry_tf_node',
+    'monocular_depth.launch.py          → monocular_depth_node',
+    'octomap_route_replanner.launch.py  → octomap_route_replanner_node',
+    'local_navigation.launch.py        → local_navigation_node',
+    'autopilot_adapter.launch.py       → autopilot_adapter_node',
+    'mavros.launch.py → MAVROS apm.launch → mavros_node',
     'Node C++: src/uav_navigation_ros/src/ → uav_navigation_core',
     'Global: prior cố định → static_octomap_planner.cpp → A* 5 Hz',
     'Local: Depth Anything → cloud → MPPI; không cập nhật prior',

@@ -50,6 +50,6 @@ exec docker run --rm --init --name uav-navigation --runtime nvidia \
   --mount "type=bind,src=$prior,dst=/maps/prior.bt,readonly" \
   --mount "type=bind,src=$params,dst=/params/runtime.yaml,readonly" \
   --mount "type=bind,src=$state,dst=/state" \
-  "$image" ros2 launch uav_navigation_bringup app.launch.xml \
+  "$image" ros2 launch uav_navigation_bringup app.launch.py \
   params_file:=/params/runtime.yaml fcu_url:="$fcu_url" start_mavros:="$start_mavros" \
   localization_source:="$localization" use_sim_time:="$sim_time"

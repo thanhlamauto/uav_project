@@ -53,7 +53,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-rclcpp ros-humble-geometry-msgs ros-humble-nav-msgs \
     ros-humble-sensor-msgs ros-humble-visualization-msgs \
     ros-humble-diagnostic-msgs ros-humble-mavros-msgs ros-humble-mavros \
-    ros-humble-tf2-ros ros-humble-ros2launch ros-humble-launch-xml \
+    ros-humble-tf2-ros ros-humble-ros2launch ros-humble-launch-ros ros-humble-launch-xml \
     && rm -rf /var/lib/apt/lists/*
 RUN geographiclib-get-geoids egm96-5 && mkdir -p /models /maps /state
 COPY --from=opencv-build /opt/opencv/ /opt/opencv/

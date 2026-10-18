@@ -15,4 +15,4 @@ COPY --from=build /sim_ws/install /simulation_install
 COPY simulation/config/runtime.yaml /simulation/runtime.yaml
 ENV LD_LIBRARY_PATH=/jetson-driver:/opt/tensorrt/lib:/opt/cuda/lib:/opt/opencv/lib
 ENV ROS_LOCALHOST_ONLY=1
-CMD ["bash", "-c", "source /simulation_install/setup.bash && exec ros2 launch uav_simulation forest.launch.xml"]
+CMD ["bash", "-c", "source /simulation_install/setup.bash && exec ros2 launch uav_simulation forest.launch.py"]

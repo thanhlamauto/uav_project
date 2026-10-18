@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-  <arg name="fcu_url" default="/dev/ttyACM0:57600"/>
-  <include file="$(find-pkg-share mavros)/launch/apm.launch">
-    <arg name="fcu_url" value="$(var fcu_url)"/>
-    <!-- node.launch already applies /mavros to its UAS plugins. -->
-    <arg name="namespace" value=""/>
-  </include>
-</launch>

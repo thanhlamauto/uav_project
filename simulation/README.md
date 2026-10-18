@@ -68,7 +68,7 @@ simulation/
 Mac: Gazebo RGB + ideal state + clock ── TCP/JPEG, USB ──► Orin Docker
                                                     gazebo_receiver
                                                          ↓
-                 app.launch.xml: odometry_tf → depth → OctoMap/A* → MPPI
+                 app.launch.py: odometry_tf → depth → OctoMap/A* → MPPI
                                                                          ↓
 Mac: ArduPilot SITL ◄── MAVLink TCP 5762 qua USB ── MAVROS ◄── adapter
 ```
@@ -78,10 +78,10 @@ không giả trạng thái autopilot và không truyền lệnh. Định vị l�
 không phải EKF; depth chỉ nhận RGB, không có depth GT/LiDAR trong luồng này.
 JPEG quality 85 giữ cách truyền ảnh hiện có; đây không phải ảnh lossless.
 
-`forest.launch.xml` ghép launch riêng của receiver với `app.launch.xml`.
+`forest.launch.py` ghép launch riêng của receiver với `app.launch.py`.
 Bạn có thể tắt/thay từng thành phần bằng `start_*` và `*_launch_file`, ví dụ
-`start_depth:=false` hoặc `depth_launch_file:=/absolute/path/new_depth.launch.xml`.
-Các argument này truyền khi gọi `ros2 launch uav_simulation forest.launch.xml`
+`start_depth:=false` hoặc `depth_launch_file:=/absolute/path/new_depth.launch.py`.
+Các argument này truyền khi gọi `ros2 launch uav_simulation forest.launch.py`
 trong container đã source workspace. Hướng dẫn: [launch và thay node](../src/uav_navigation_bringup/README.md).
 
 ## 1. Chuẩn bị Mac, làm một lần

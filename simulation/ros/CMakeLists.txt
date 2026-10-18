@@ -12,5 +12,7 @@ target_include_directories(gazebo_receiver PRIVATE ../bridge/include)
 target_link_libraries(gazebo_receiver JPEG::JPEG)
 ament_target_dependencies(gazebo_receiver rclcpp nav_msgs sensor_msgs rosgraph_msgs)
 install(TARGETS gazebo_receiver DESTINATION lib/${PROJECT_NAME})
-install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}
+  PATTERN "__pycache__" EXCLUDE
+  PATTERN "*.pyc" EXCLUDE)
 ament_package()

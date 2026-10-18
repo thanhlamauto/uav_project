@@ -1,120 +1,81 @@
-# Launch theo từng thành phần
+# Python launch files
 
-`app.launch.xml` ghép các launch con bằng `include`. Mỗi launch con cũng chạy
-độc lập được. Cấu hình mặc định giữ các node, topic, tên node và thuật toán hiện có.
-Các include được đặt trong group có scope riêng để `node_package` /
-`node_executable` của một thành phần không lan sang thành phần khác.
+Start with the minimal [integration guide](../../docs/INTEGRATION.md).
+`app.launch.py` composes the components below. Each include has its own scope,
+so one component's `node_package` / `node_executable` cannot affect another.
 
-| Thành phần | Launch riêng | Bật/tắt trong app | Chọn launch thay thế |
+| Component | Standalone launch | Enable in app | Replacement launch argument |
 |---|---|---|---|
-| Localization + TF | `odometry_tf.launch.xml` | `start_localization` | `localization_launch_file` |
-| Depth | `monocular_depth.launch.xml` | `start_depth` | `depth_launch_file` |
-| OctoMap + A* | `octomap_route_replanner.launch.xml` | `start_global_planner` | `global_planner_launch_file` |
-| MPPI + safety | `local_navigation.launch.xml` | `start_local_planner` | `local_planner_launch_file` |
-| Adapter | `autopilot_adapter.launch.xml` | `start_adapter` | `adapter_launch_file` |
-| MAVROS | `mavros.launch.xml` | `start_mavros` | `mavros_launch_file` |
+| State + TF | `odometry_tf.launch.py` | `start_localization` | `localization_launch_file` |
+| Depth | `monocular_depth.launch.py` | `start_depth` | `depth_launch_file` |
+| OctoMap + A* | `octomap_route_replanner.launch.py` | `start_global_planner` | `global_planner_launch_file` |
+| MPPI + safety | `local_navigation.launch.py` | `start_local_planner` | `local_planner_launch_file` |
+| FCU adapter | `autopilot_adapter.launch.py` | `start_adapter` | `adapter_launch_file` |
+| MAVROS | `mavros.launch.py` | `start_mavros` | `mavros_launch_file` |
 
-Mặc định các thành phần đều bật. Launch dùng lại `config/runtime.yaml`;
-`params_file` chọn profile khác. Tham số truyền trực tiếp qua launch có ưu tiên
-cao hơn cùng tham số trong YAML.
+All components are enabled by default. `params_file` defaults to the installed
+`config/runtime.yaml`. Explicit launch parameters override matching YAML values.
+Defaults target simulation (`localization_source=gazebo`, `use_sim_time=true`).
 
-## Chạy riêng một node
+## Run or replace a component
 
-Các lệnh ROS dưới đây dùng trong workspace đã build và source ROS 2. Đường dẫn
-`/models`, `/maps`, `/simulation` trong ví dụ là đường dẫn bên trong Docker Orin.
-Chạy riêng depth:
+After building and sourcing your workspace:
 
 ```bash
-ros2 launch uav_navigation_bringup monocular_depth.launch.xml \
-  params_file:=/simulation/runtime.yaml model_file:=/models/depth_fp16.plan
+ros2 launch uav_navigation_bringup monocular_depth.launch.py \
+  params_file:=/data/uav/runtime.yaml model_file:=/data/models/depth_fp16.plan \
+  use_sim_time:=false
+ros2 launch uav_navigation_bringup monocular_depth.launch.py --show-args
 ```
 
-Chạy riêng MPPI + safety:
+For the whole app, select a custom Python launch or disable a component:
 
 ```bash
-ros2 launch uav_navigation_bringup local_navigation.launch.xml \
-  params_file:=/simulation/runtime.yaml
+ros2 launch uav_navigation_bringup app.launch.py \
+  depth_launch_file:=/absolute/path/custom_depth.launch.py
+# Alternatively, start your replacement separately:
+ros2 launch uav_navigation_bringup app.launch.py start_depth:=false
 ```
 
-Node vẫn cần các đầu vào của nó: local navigation cần state, path, cloud và TF.
-Chỉ mở launch riêng không tự sinh dữ liệu hay arm/takeoff UAV.
-Xem argument của một launch mà chưa chạy node:
+The replacement launch receives the following arguments:
 
-```bash
-ros2 launch uav_navigation_bringup monocular_depth.launch.xml --show-args
-```
-
-## Thay một thành phần trong cả hệ thống
-
-Tạo launch mới, có thể copy launch tương ứng rồi sửa package/executable và
-cấu hình cho node mới. Chọn file đó khi chạy app:
-
-```bash
-ros2 launch uav_navigation_bringup app.launch.xml \
-  depth_launch_file:=/absolute/path/new_depth.launch.xml
-```
-
-App truyền các argument sau cho launch thay thế; file mới phải nhận chúng:
-
-| Thành phần | Argument được truyền vào launch con |
+| Component | Forwarded arguments |
 |---|---|
-| Localization | `params_file`, `use_sim_time`, `localization_source` |
+| State + TF | `params_file`, `use_sim_time`, `localization_source` |
 | Depth | `params_file`, `use_sim_time`, `model_file`, `depth_backend` |
 | Global planner | `params_file`, `use_sim_time`, `prior_map` |
-| Local planner, adapter | `params_file`, `use_sim_time` |
+| Local planner | `params_file`, `use_sim_time`, `prior_map` |
+| Adapter | `params_file`, `use_sim_time` |
 | MAVROS | `fcu_url` |
 
-Node mới phải cung cấp cùng contract message/topic/frame/timestamp/QoS cho
-các thành phần còn lại (xem bảng input/output ở README root). Nếu node mới có
-parameter khác, launch thay thế chịu trách nhiệm ánh xạ cấu hình cho nó.
-Launch không tự chuyển đổi thuật toán, định dạng model hay message.
+Declare these arguments in your replacement and map them to your node's parameters.
+Preserve the [message/frame/QoS contract](../../docs/INTEGRATION.md#data-contract).
+For an executable replacement with the same parameters, the five runtime leaf
+launches also accept `node_package` and `node_executable`. ROS node names stay
+fixed to match the YAML sections. Run only one publisher for each component output.
 
-## Tắt node mặc định để chạy bản khác ở terminal riêng
+To change only the model, set `model_file` and `depth_backend`:
+`auto` selects OpenCV CPU for `.onnx`, TensorRT for `.plan` / `.engine`.
+The model must match the current metric-depth preprocessing/output contract.
 
-```bash
-ros2 launch uav_navigation_bringup app.launch.xml start_depth:=false
-```
+`mavros.launch.py` wraps upstream `mavros/launch/apm.launch` (XML) and forwards
+`fcu_url`. Keep `launch_xml` installed; upstream XML is not copied into this project.
 
-Ở terminal thứ hai đã source cùng workspace, cùng ROS domain:
+## Simulation and rebuild
 
-```bash
-ros2 launch uav_navigation_bringup monocular_depth.launch.xml \
-  node_package:=my_depth_package node_executable:=my_depth_node \
-  params_file:=/absolute/path/new_profile.yaml
-```
+`uav_simulation/forest.launch.py` forwards all app arguments. Receiver controls:
+`start_receiver`, `receiver_launch_file`, `receiver_bind_address`, `receiver_port`.
+Its standalone `gazebo_receiver.launch.py` accepts `bind_address`, `port`,
+`node_package` and `node_executable`. See [simulation setup](../../simulation/README.md).
 
-`my_depth_package` / `my_depth_node` là ví dụ cho node mới đã build/install.
-Năm launch runtime đều hỗ trợ `node_package` và `node_executable`; tên node
-ROS vẫn cố định để khớp section trong YAML. Dùng một nguồn output cho mỗi
-thành phần: tắt bản mặc định trước khi bật bản thay thế.
-
-Nếu chỉ đổi weight/backend hiện được hỗ trợ, dùng `model_file` và
-`depth_backend`; không cần tạo node khác.
-
-## Dùng với mô phỏng
-
-`uav_simulation/forest.launch.xml` chuyển tiếp các argument của app, gồm
-`start_*` và `*_launch_file`. Ví dụ:
+After changing launch/config files, rebuild and source the package:
 
 ```bash
-ros2 launch uav_simulation forest.launch.xml \
-  depth_launch_file:=/absolute/path/new_depth.launch.xml
-```
-
-Receiver cũng có launch riêng `uav_simulation/gazebo_receiver.launch.xml`,
-argument `bind_address`, `port`, `node_package`, `node_executable`.
-Trong forest, dùng `start_receiver`, `receiver_launch_file`,
-`receiver_bind_address`, `receiver_port` để chọn/tắt/cấu hình receiver.
-
-## Build và cập nhật
-
-Chỉ đổi launch/config của bringup, trong workspace đã source các dependency:
-
-```bash
-colcon build --base-paths src --packages-select uav_navigation_bringup
+colcon build --packages-select uav_navigation_bringup
+colcon test --packages-select uav_navigation_bringup
+colcon test-result --verbose
 source install/setup.bash
 ```
 
-`CMakeLists.txt` đã cài toàn bộ folder `launch/` và `config/`.
-Với Docker, source thay đổi chưa tự cập nhật container/image cũ. Đồng bộ project
-lên Orin rồi build lại image theo README root và `simulation/README.md`.
+CMake installs `launch/` and `config/`. Rebuild the Docker image to update container
+launch files. A standalone launch does not create its sensor/state inputs or arm/take off.

@@ -1,5 +1,8 @@
 # Monocular UAV navigation
 
+[Integration guide (English)](docs/INTEGRATION.md): build, include Python launch,
+and input/output contract for an existing ROS 2 workspace.
+
 Runtime C++17/ROS 2 Humble cho Orin:
 ```text
 Prior OctoMap cố định → A* 3D → global path ──┐
@@ -39,9 +42,10 @@ Tắt riêng từng cửa sổ bằng `UAV_GUI=0` (Gazebo) hoặc `UAV_RVIZ=0` (
 RViz có path A* vàng, MPPI cyan, đường bay thực trắng, điểm depth cam và trạng thái
 MPPI/adapter. Kênh xem chỉ truyền Orin → Mac qua SSH, ROS domain 175 tách khỏi runtime.
 
-Các node có launch riêng, được ghép trong `app.launch.xml`. Có thể bật/tắt
+Các node có launch riêng, được ghép trong `app.launch.py`. Có thể bật/tắt
 từng thành phần bằng `start_*:=false` hoặc thay launch bằng `*_launch_file`;
 xem [launch và thay node](src/uav_navigation_bringup/README.md).
+Python chỉ dùng để khởi động và cấu hình; các node thuật toán vẫn là C++.
 
 Chuẩn bị prior từ Gazebo world bằng công cụ độc lập trong project:
 
@@ -85,7 +89,7 @@ Trong thí nghiệm hiện tại, **Gazebo ground truth đóng vai trò GPS/stat
 Depth Anything vẫn chỉ nhận RGB; không dùng depth GT để sửa dự đoán.
 
 Setup Mac → Orin có sẵn trong [simulation/README.md](simulation/README.md),
-chạy chính `app.launch.xml` này và MAVROS thật, không gọi runtime repo cha.
+chạy chính `app.launch.py` này và MAVROS thật, không gọi runtime repo cha.
 Nếu tự dùng bridge khác, contract là ROS `/iris/odometry`, pose frame
 `odom`, child `base_link`, và `/clock`. `odom` trong mô phỏng phải cùng gốc/hướng
 world ENU với `map` và prior `.bt`; node chỉ đổi nhãn frame, không ước lượng offset.
@@ -169,10 +173,10 @@ Build chuẩn bằng colcon tạo `build/`, `install/`, `log/` ở workspace roo
 # Trong bash, sau khi source môi trường ROS 2 phù hợp:
 colcon build --base-paths src --cmake-args -DCMAKE_BUILD_TYPE=Release \
   -DOpenCV_DIR=/opt/opencv/lib/cmake/opencv5
-colcon test --packages-select uav_navigation_core uav_navigation_ros
+colcon test --packages-select uav_navigation_core uav_navigation_ros uav_navigation_bringup
 colcon test-result --verbose
 source install/setup.bash
-ros2 launch uav_navigation_bringup app.launch.xml
+ros2 launch uav_navigation_bringup app.launch.py
 ```
 
 Launch mặc định cần model, prior map, RGB/CameraInfo, Gazebo state + clock và FCU theo contract phía trên.

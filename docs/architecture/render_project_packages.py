@@ -40,7 +40,7 @@ def add(eid, template, value, x, y, size):
 
 label('e0048', 'Prior cố định → A* 3D, 5 Hz')
 label('e0044', 'RGB → cloud cho MPPI')
-add('p_node_launches', 'e0033', 'launch/*.launch.xml — launch riêng từng node', 710, 293, 18)
+add('p_node_launches', 'e0033', 'launch/*.launch.py — launch riêng từng node', 710, 293, 18)
 label('e0023', 'runtime.yaml · sitl.parm · forest.rviz', size=17)
 label('e0024', 'Profile navigation / autopilot / RViz', size=17)
 add('p_visualization', 'e0025', 'visualization/ — RViz + SSH relay', 96, 878, 17)

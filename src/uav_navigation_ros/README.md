@@ -3,10 +3,11 @@
 - `monocular_depth_node`: calibrated RGB → metric depth/cloud.
 - `octomap_route_replanner_node`: prior cố định + localization + goal → A* 3D, 5 Hz; không nhận cloud.
 - `local_navigation_node`: localization + path + cloud depth + prior guard → MPPI velocity.
-- `odometry_tf_node`: EKF pose → TF; cấu hình camera extrinsics.
+- `odometry_tf_node`: Gazebo ideal state hoặc MAVROS ENU state → normalized odometry + TF; camera extrinsics.
 - `autopilot_adapter_node`: safe velocity → MAVROS; connection/mode/watchdog.
 
 Launch và cấu hình nằm trong package `uav_navigation_bringup`.
+[Integration guide (English)](../../docs/INTEGRATION.md): build, Python launch and data contract.
 Camera driver bên ngoài cung cấp rectified RGB 640×360 và CameraInfo.
 MAVROS cung cấp odometry chuẩn: pose ENU, twist trong base_link.
 

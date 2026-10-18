@@ -26,7 +26,7 @@ if [[ "${1:-}" == --dry-run ]]; then
 Mac: preflight -> CMake simulation + tools/octomap -> full prior map
 Mac -> USB SSH/rsync -> Orin: build Docker GPU + simulation images
 Mac: gz server + GUI -> ArduPilot SITL -> sitl_control.py takeoff (HOVER READY)
-Orin: orin_runtime.sh start -> Docker -> forest.launch.xml -> app.launch.xml
+Orin: orin_runtime.sh start -> Docker -> forest.launch.py -> app.launch.py
 Mac: gazebo_sender -> USB TCP/JPEG -> Orin gazebo_receiver
 Optional RViz on Mac: Orin topic subscriber -> SSH/USB tunnel -> isolated local ROS domain 175
 Orin: observe_run.py -> wait for fresh inputs + GUIDED/armed -> publish goal

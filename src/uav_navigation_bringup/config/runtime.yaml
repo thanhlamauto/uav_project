@@ -118,7 +118,7 @@ local_navigation:
 odometry_tf:
   ros__parameters:
     use_sim_time: true
-    # app.launch.xml selects gazebo (ideal state) or explicitly mavros (real FCU).
+    # app.launch.py selects gazebo (ideal state) or explicitly mavros (real FCU).
     # Gazebo odom and map must have identical world ENU origin/axes.
     planning_frame: map
     body_frame: base_link
